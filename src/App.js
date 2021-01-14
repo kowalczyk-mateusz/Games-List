@@ -1,3 +1,6 @@
+import React from 'react'
+import Home from './pages/Home'
+import GlobalStyle from './components/globalStyles'
 
 
 function App() {
@@ -5,7 +8,8 @@ function App() {
 
   return (
     <div className="App">
-        <h1>Hello</h1>
+      <GlobalStyle/>
+        <Home />
     </div>
   );
 }
