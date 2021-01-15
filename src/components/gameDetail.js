@@ -10,6 +10,8 @@ import nintendo from '../img/nintendo.svg'
 import playstation from '../img/playstation.svg'
 import steam from '../img/steam.svg'
 import xbox from '../img/xbox.svg'
+import starempty from '../img/starempty.png'
+import starfull from '../img/starfull.png'
 
 const GameDetail = ({pathId}) =>{
 
@@ -42,6 +44,22 @@ const GameDetail = ({pathId}) =>{
         }
     }
 
+    const getStars = () =>{
+        const stars = []
+        const rating = Math.floor(game.rating)
+
+        for(let i = 1;i<=5;i++){
+            if(i <= rating){
+                stars.push(<img src={starfull} key={i} alt='star'></img>)
+            }
+            else{
+                stars.push(<img src={starempty} key={i} alt='star'></img>)
+            }
+        }
+        return stars
+        
+    }
+
     const {screen, game, isLoading} = useSelector((state)=> state.detail)
 
     return(
@@ -52,7 +70,8 @@ const GameDetail = ({pathId}) =>{
                 <Stats>
                     <div className="rating">
                         <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
-                        <p>Rating: {game.rating} / 5</p>
+        <p>Rating: {game.rating}</p>
+                        {getStars()}
                         
                     </div>
                     <Info>
@@ -122,6 +141,13 @@ const Stats = styled(motion.div)`
 display: flex;
 align-items: center;
 justify-content: space-between;
+.rating{
+    img{
+        display: inline;
+        width: 2rem;
+        height: 2rem;
+    }
+}
 `
 
 const Info = styled(motion.div)`
