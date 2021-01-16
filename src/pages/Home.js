@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import {motion, AnimatePresence, AnimateSharedLayout} from 'framer-motion'
 import GameDetail from '../components/gameDetail'
 import {useLocation} from 'react-router-dom'
-
+import {fadeIn} from '../animations'
 
 
 const Home = () =>{
@@ -20,13 +20,22 @@ useEffect(()=>{
 //
 const location = useLocation();
 const pathId = location.pathname.split("/")[2]
-const {popular, newGames, upcoming} = useSelector((state) => state.games);
+const {popular, newGames, upcoming, searched} = useSelector((state) => state.games);
     return(
-    <GameList>
+    <GameList variants={fadeIn} initial='hidden' animate='show'>
         <AnimateSharedLayout type="crossfade">
         <AnimatePresence >
         {pathId && <GameDetail pathId={pathId} />}
         </AnimatePresence>
+        {searched.length ? (
+            <div className="searched">
+        <h2>Searched games</h2>
+        <Games>{searched.map(game => (
+        <Game name={game.name} released={game.released} id={game.id} key={game.id} image={game.background_image}/>
+            ))}</Games>
+        </div>
+        ): ''}
+
         <h2>Upcoming games</h2>
     <Games>{upcoming.map(game => (
         <Game name={game.name} released={game.released} id={game.id} key={game.id} image={game.background_image}/>
@@ -43,11 +52,15 @@ const {popular, newGames, upcoming} = useSelector((state) => state.games);
     ))}</Games>
     </AnimateSharedLayout>
     </GameList>
+
     )
 }
 
 const GameList = styled(motion.div)`
 padding: 0rem 5rem;
+@media (max-width: 700px){
+    padding: 0rem 0.5rem;
+}
 h2{
     padding: 5rem 0rem;
 }

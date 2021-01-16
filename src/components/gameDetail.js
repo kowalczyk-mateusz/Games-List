@@ -130,7 +130,9 @@ background: white;
 position: absolute;
 left: 10%;
 color: black;
-
+@media (max-width: 700px){
+    padding: 2rem 0.5rem;
+}
 img{
     width: 100%;
 }
@@ -141,6 +143,9 @@ const Stats = styled(motion.div)`
 display: flex;
 align-items: center;
 justify-content: space-between;
+@media (max-width: 700px){
+    flex-direction: column;
+}
 .rating{
     img{
         display: inline;
@@ -160,6 +165,18 @@ justify-content: space-evenly;
 img{
     margin-left: 3rem;
 }
+@media (max-width: 700px){
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    img{
+        width: 3rem;
+        height: 3rem;
+        margin: 0rem 0.5rem
+    }
+}
+
+
 `
 
 const Media = styled(motion.div)`
@@ -171,6 +188,12 @@ img{
 
 const Description = styled(motion.div)`
 margin: 5rem 0rem;
+@media (max-width: 700px){
+   p{
+       line-height: 1.5rem;
+   }
+}
+
 `
 
 export default GameDetail
